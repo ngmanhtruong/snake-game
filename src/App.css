@@ -1,38 +1,83 @@
-.App {
-  text-align: center;
+*{
+  box-sizing: border-box;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes in-and-out {
+  0%, 100%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.2);
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App{
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: column;
+  background-color: #333;
+}
+
+h1{
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+h3{
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.start{
+  animation: in-and-out 3s infinite;
 }
+p{
+  color: white;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.grid-container{
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item{
+  width: 50px;
+  height: 50px;
+  outline: 1px solid black;
+  border-radius: 5px;
+  background-color: #21b9c9;
+}
+
+.is-food{
+  background-color: black;
+}
+
+.is-head{
+  background-color: red ;
+}
+
+.is-tail{
+  background-color: orange;
+}
+.info{
+  display: flex;
+  flex-wrap: wrap;
+}
+.score{
+  text-align: center;
+  padding-right: 20px;
+}
+.change-level{
+  padding-right: 20px;
+}
+.change-level select{
+  width: 100%;
+  text-align: center;
+}
+
