@@ -291,8 +291,7 @@ export default class App extends Component {
     })
   }
 
-  gameOver(){
-    alert(`Game Over. Snake's length: ${this.state.snake.tail.length}`);
+  resetWhenAlert(){
     this.setState(state=>{
       const newState = {
         ...state,
@@ -316,9 +315,15 @@ export default class App extends Component {
     })
   }
 
+  gameOver(){
+    alert(`Game Over. Snake's length: ${this.state.snake.tail.length}`);
+    this.resetWhenAlert();
+  }
+
   gameVictory(condition=99){
     if(this.state.snake.tail.length == condition){
-      this.setState({ victory : true })
+      alert(`You won. Snake's length: ${this.state.snake.tail.length}. Congratulation!!!`);
+      this.resetWhenAlert();
     }
   }
 
