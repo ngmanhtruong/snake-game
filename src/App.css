@@ -25,6 +25,9 @@ h1{
 h3{
   color: white;
 }
+h4{
+  color: white;
+}
 
 .start{
   animation: in-and-out 3s infinite;

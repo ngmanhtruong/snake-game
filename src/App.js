@@ -416,6 +416,7 @@ export default class App extends Component {
       <div className="App">
         <h1>SNAKE GAME</h1>
         <h3 className='start'>PRESS W,A,S,D KEYS TO START</h3>
+        <h4>Please disable Unikey if the snake doesn't change direction</h4>
         <div className={`grid-container block-${this.state.rows == 10 ? 'ten' : this.state.rows == 20 ? 'twenty' : 'thirty'}`}>
           {grid && grid.map(item=>(
               <div
