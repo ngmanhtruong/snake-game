@@ -1,15 +1,19 @@
 import './App.css';
 import React, { Component } from 'react';
 
-const initialSnake = {
-  head: {},
-  tail: []
-}
+
 const initialLevel = [
   {value: 'easy', label: 'Easy'},
   {value: 'medium', label: 'Medium'},
   {value: 'hard', label: 'Hardcord'},
 ]
+
+const initialGrid = [
+  {value: 10, label: '10'},
+  {value: 20, label: '20'},
+  {value: 30, label: '30'}
+]
+
 export default class App extends Component {
   constructor(props){
     super(props);
@@ -17,7 +21,10 @@ export default class App extends Component {
       rows: 10,
       cols: 10,
       grid: [],
-      snake: initialSnake,
+      snake: {
+        head: {},
+        tail: []
+      },
       foodPos: {},
       speed: 300,
       direction: '',
@@ -31,6 +38,7 @@ export default class App extends Component {
     this.handleKey = this.handleKey.bind(this);
   } 
 
+  //AVOID GOING BACKWARDS AND LOSE THE GAME
   moveable(bool){
     if(bool === true){
       this.setState({ isMove : true});
@@ -41,7 +49,6 @@ export default class App extends Component {
   }
 
   randomFood(){
-    // console.log('called');
     let newRow = Math.floor((Math.random() * this.state.rows));
     let newCol = Math.floor((Math.random() * this.state.cols));
     let newPos = {col: newCol, row: newRow};
@@ -52,6 +59,7 @@ export default class App extends Component {
     }
   }
 
+  //MAKE THE FOOD UPDATE ONLY 1 INSTEAD OF 2 ( when put in the snakeMove )
   snakeEatFood(){
     this.setState({ foodPos : this.randomFood() })
   }
@@ -63,7 +71,6 @@ export default class App extends Component {
         snake,
         foodPos,
         die,
-        isMove
       } = state;
 
       const {row, col} = state.snake.head;
@@ -118,7 +125,6 @@ export default class App extends Component {
             break;
           }
 
-  
         case 'RIGHT':
           if(head.col === state.cols - 1){
             newHead = head;
@@ -305,6 +311,7 @@ export default class App extends Component {
       return {
         ...newState,
         grid,
+        direction: ''
       }
     })
   }
@@ -329,6 +336,29 @@ export default class App extends Component {
     if (value === 'hard'){
       this.gameVictory(90);
       this.setState({ speed: 1 });
+    }
+  }
+
+  
+  handleGridChange = (e)=>{
+    let value = e.target.value;
+    if(value == 10){
+      this.setState({
+        rows: 10,
+        cols: 10
+      })
+    }
+    if(value == 20){
+      this.setState({
+        rows: 20,
+        cols: 20
+      })
+    }
+    if(value == 30){
+      this.setState({
+        rows: 30,
+        cols: 30
+      })
     }
   }
 
@@ -381,7 +411,7 @@ export default class App extends Component {
       <div className="App">
         <h1>SNAKE GAME</h1>
         <h3 className='start'>PRESS W,A,S,D KEYS TO START</h3>
-        <div className="grid-container">
+        <div className={`grid-container block-${this.state.rows == 10 ? 'ten' : this.state.rows == 20 ? 'twenty' : 'thirty'}`}>
           {grid && grid.map(item=>(
               <div
                 key={`${item.row.toString()} - ${item.col.toString()}`}
@@ -393,6 +423,8 @@ export default class App extends Component {
               </div>
             )
           )}
+        
+        </div>
         <div className='info'>
             <div className='score'>
               <h3>SCORE</h3>
@@ -406,13 +438,20 @@ export default class App extends Component {
                 ))}
               </select>
             </div>
+            <div className='change-grid'>
+              <h3>CHANGE GRID</h3>
+              <select value={this.state.rows} onChange={this.handleGridChange}>
+                {initialGrid.map(option=>(
+                  <option value={option.value}>{`${option.label}x${option.label}`}</option>
+                ))}
+              </select>
+            </div>
             <div className='win-condition'>
               <h3>WIN CONDITION</h3>
               <p>Score: {this.state.level === 'easy' ? '50' 
                 : this.state.level ==='medium' ? '70' : '90'}
               </p>
             </div>
-        </div>
         </div>
       </div>
     );
