@@ -83,6 +83,7 @@ p{
 .info{
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 50px;
 }
 .score{
   text-align: center;
